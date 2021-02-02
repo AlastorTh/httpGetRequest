@@ -1,17 +1,19 @@
 package main
 
 import (
+	"fmt"
 	"io/ioutil"
 	"log"
 	"net/http"
 )
 
 func main() {
-	MakeRequest()
+	s := getContentAsString("https://httpbin.org/get")
+	fmt.Println(s)
 }
 
-func MakeRequest() {
-	resp, err := http.Get("https://httpbin.org/get")
+func getContentAsString(url string) string {
+	resp, err := http.Get(url)
 
 	if err != nil {
 		log.Fatalln(err)
@@ -23,5 +25,5 @@ func MakeRequest() {
 	if err != nil {
 		log.Fatalln(err)
 	}
-	log.Println(string(body))
+	return string(body)
 }
